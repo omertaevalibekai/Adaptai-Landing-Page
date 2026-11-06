@@ -1,11 +1,61 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Geist", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01";
+}
+
+:focus-visible {
+  outline: 2px solid #0bb8d3;
+  outline-offset: 2px;
+}
+
+/* чертёжная сетка поверх 3D первого экрана */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, rgba(6, 38, 44, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 38, 44, 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 85%);
+}
+.tech-grid-soft {
+  background-size: 40px 40px;
+  -webkit-mask-image: linear-gradient(to left, #000, transparent 70%);
+  mask-image: linear-gradient(to left, #000, transparent 70%);
+}
+
+/* единственная входная последовательность - первый экран */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.hero-in {
+  opacity: 0;
+  animation: heroIn 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.hero-in:nth-child(1) { animation-delay: 0.05s; }
+.hero-in:nth-child(2) { animation-delay: 0.15s; }
+.hero-in:nth-child(3) { animation-delay: 0.25s; }
+.hero-in:nth-child(4) { animation-delay: 0.35s; }
+.hero-in:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes lineIn {
+  from { opacity: 0; transform: translateX(-6px); background-color: rgba(11, 184, 211, 0.12); }
+  to { opacity: 1; transform: none; background-color: transparent; }
+}
+.console-line {
+  animation: lineIn 0.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in, .console-line { animation: none; opacity: 1; }
 }
 
 html {
@@ -54,6 +104,19 @@ html {
   animation: fadeInDialog 0.5s ease-out forwards;
 }
 
+.hero-poster {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+  .hero-poster {
+    display: block;
+  }
+}
+
 @keyframes marqueeScroll {
   from {
     transform: translateX(0);
@@ -69,3 +132,16 @@ html {
   animation: marqueeScroll 24s linear infinite;
 }
 
+
+.loop-poster {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop-video {
+    display: none;
+  }
+  .loop-poster {
+    display: block;
+  }
+}

@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Blender: кадры и превью рендера
+blender/renders/
+blender/*.blend1
+blender/*.blend
+blender/__pycache__/
