@@ -190,3 +190,51 @@ html {
   }
 }
 
+
+/* маскоты: лёгкое парение у каждого со своим сдвигом фазы */
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(-1.5deg); }
+}
+.mascot-float {
+  animation: mascotFloat 3.6s ease-in-out infinite;
+}
+@keyframes teamDetailIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.team-detail-in {
+  animation: teamDetailIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* активный пункт меню */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: #0bb8d3;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+/* смена языка: мягкое перетекание через View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+::view-transition-old(root) { animation-name: vtOut; }
+::view-transition-new(root) { animation-name: vtIn; }
+@keyframes vtOut { to { opacity: 0; filter: blur(3px); } }
+@keyframes vtIn { from { opacity: 0; filter: blur(3px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot-float, .team-detail-in { animation: none; }
+}

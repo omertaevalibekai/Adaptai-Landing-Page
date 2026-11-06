@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import Hls from "hls.js";
 import DotWaveBackground from "./DotWaveBackground.jsx";
+import TeamShelf from "./TeamShelf.jsx";
 import {
   ArrowRight,
   BarChart3,
@@ -8,9 +10,7 @@ import {
   Check,
   ChevronDown,
   ClipboardCheck,
-  Compass,
   Handshake,
-  MessageCircle,
   Package,
   Play,
   Plus,
@@ -26,7 +26,7 @@ const translations = {
       login: "Login",
       started: "Get started",
     },
-    heading1: "Your business runs. You stay in control.",
+    heading1: "Your business runs. You stay in control.",
     heading2: "AI agents for sales, inventory, tasks and your team - in one platform.",
     subheading:
       "Leads from WhatsApp, Instagram and Kaspi, products and deals, tasks and hiring are connected. Agents take over the routine, and you see the whole process.",
@@ -168,6 +168,108 @@ const translations = {
         }
       },
       "integrationsTitle": "Connects to the services you already use"
+    },
+    team: {
+      "title": "Meet the team",
+      "text": "14 AI assistants, each with its own job. Pick an assistant or a department to see who does what.",
+      "all": "All",
+      "depts": {
+        "sales": "Sales",
+        "stock": "Inventory",
+        "team": "Team",
+        "general": "General"
+      },
+      "agents": {
+        "assistant": [
+          "AI assistant",
+          "Answers from company documents and your files."
+        ],
+        "whatsapp_sales": [
+          "WhatsApp assistant",
+          "Talks to customers using company instructions, knowledge and products."
+        ],
+        "instagram_sales": [
+          "Instagram responder",
+          "Replies in Direct, clarifies the request, takes a contact and hands over to a manager."
+        ],
+        "scout": [
+          "Scout",
+          "Shows who you are losing: who waits for a reply, who is stuck, who went silent."
+        ],
+        "reply_assistant": [
+          "Reply assistant",
+          "Suggests three replies to the customer based on the deal stage. A person sends."
+        ],
+        "dossier": [
+          "Customer dossier",
+          "Summarises the conversation: who the customer is, what was agreed, what matters."
+        ],
+        "followup": [
+          "Silent-lead follow-up",
+          "When a customer goes quiet, suggests how to restart the conversation and when."
+        ],
+        "instagram_comments": [
+          "Instagram comments",
+          "Replies under posts and Reels with its own instructions."
+        ],
+        "visualizer": [
+          "AI visualizer",
+          "Shows a product or solution right on the customer's photo."
+        ],
+        "warehouse": [
+          "Inventory agent",
+          "Knows stock and movements, and spots where records drifted from reality."
+        ],
+        "kaspi": [
+          "Kaspi assistant",
+          "Analyses products and reports of the selected Kaspi store."
+        ],
+        "tasks": [
+          "Tasks assistant",
+          "Helps set priorities, break work into steps and check deadlines."
+        ],
+        "recruiter": [
+          "AI recruiter",
+          "Manages vacancies, candidates and tests."
+        ],
+        "personnel": [
+          "Team assistant",
+          "Answers HR questions and helps with documents."
+        ]
+      }
+    },
+    rest: {
+      "videoTitle": "Learn more about AdaptAI",
+      "videoText": "Watch the platform presentation and see how AdaptAI changes business processes.",
+      "faqTitle": "Frequently asked questions",
+      "faqText": "About the platform, integrations and rollout.",
+      "footerText": "AI agents and tools for sales, inventory, tasks and your team. An FTT product, Astana Hub resident.",
+      "contacts": "Contacts",
+      "city": "Astana",
+      "product": "Product",
+      "legal": "Legal",
+      "privacy": "Privacy policy",
+      "offer": "Public offer",
+      "rights": "© 2026 AdaptAI Platform. All rights reserved.",
+      "navTeam": "Team",
+      "faq": [
+        [
+          "Do I need to connect all modules at once?",
+          "No. Start with sales, inventory, tasks or hiring and add the other sections one by one. The AI assistant walks you through company setup."
+        ],
+        [
+          "Which integrations does AdaptAI have?",
+          "Ready-made connections: WhatsApp, Instagram, Kaspi, HeadHunter, Bitrix24, Binotel and OnlinePBX telephony. For larger clients we set up integrations with internal systems and automate scenarios around your processes."
+        ],
+        [
+          "How do I move products and deals?",
+          "The platform supports product import and a Bitrix24 integration. The migration path depends on your source data - we agree on the structure and check the result before you start."
+        ],
+        [
+          "Is there support after launch?",
+          "Yes. We answer in chat and help with setup and data migration. For larger companies we run a dedicated rollout."
+        ]
+      ]
     },
     showcase: {
       "orbit": {
@@ -421,6 +523,108 @@ const translations = {
       },
       "integrationsTitle": "Подключается к сервисам, которыми вы уже пользуетесь"
     },
+    team: {
+      "title": "Познакомьтесь с командой",
+      "text": "14 ИИ-помощников, у каждого своя работа. Выберите помощника или отдел, чтобы узнать, кто чем занят.",
+      "all": "Все",
+      "depts": {
+        "sales": "Продажи",
+        "stock": "Склад",
+        "team": "Команда",
+        "general": "Общие"
+      },
+      "agents": {
+        "assistant": [
+          "ИИ-ассистент",
+          "Отвечает по документам компании и вашим файлам."
+        ],
+        "whatsapp_sales": [
+          "Ассистент WhatsApp",
+          "Общается с клиентами по инструкциям, знаниям и товарам компании."
+        ],
+        "instagram_sales": [
+          "Ответчик в Instagram",
+          "Отвечает в Direct, выясняет запрос, берёт контакт и передаёт менеджеру."
+        ],
+        "scout": [
+          "Разведчик",
+          "Показывает, кого вы теряете: кто ждёт ответа, кто завис, кто молчит."
+        ],
+        "reply_assistant": [
+          "Помощник в ответах",
+          "Предлагает три варианта ответа клиенту с учётом этапа сделки. Отправляет человек."
+        ],
+        "dossier": [
+          "Досье клиента",
+          "Собирает выжимку по переписке: кто клиент, о чём договорились, что важно."
+        ],
+        "followup": [
+          "Дожим молчащих",
+          "Клиент замолчал - подскажет, чем вернуть его в разговор и когда написать."
+        ],
+        "instagram_comments": [
+          "Комментарии Instagram",
+          "Отвечает под постами и Reels по отдельной инструкции."
+        ],
+        "visualizer": [
+          "ИИ-визуализатор",
+          "Показывает товар или решение прямо на фото клиента."
+        ],
+        "warehouse": [
+          "Складской агент",
+          "Знает остатки и движения, сам находит, где учёт разошёлся с жизнью."
+        ],
+        "kaspi": [
+          "Помощник Kaspi",
+          "Анализирует товары и отчёты выбранного магазина Kaspi."
+        ],
+        "tasks": [
+          "Помощник по задачам",
+          "Помогает выбрать приоритеты, разбить работу на шаги и проверить сроки."
+        ],
+        "recruiter": [
+          "ИИ-рекрутер",
+          "Ведёт вакансии, кандидатов и тесты."
+        ],
+        "personnel": [
+          "Помощник по команде",
+          "Отвечает на кадровые вопросы и помогает с документами."
+        ]
+      }
+    },
+    rest: {
+      "videoTitle": "Узнайте больше об AdaptAI",
+      "videoText": "Посмотрите видео-презентацию платформы и узнайте, как AdaptAI меняет бизнес-процессы.",
+      "faqTitle": "Частые вопросы",
+      "faqText": "О платформе, интеграциях и внедрении AdaptAI.",
+      "footerText": "ИИ-агенты и инструменты для продаж, склада, задач и команды. Продукт FTT, резидент Astana Hub.",
+      "contacts": "Контакты",
+      "city": "г. Астана",
+      "product": "Продукт",
+      "legal": "Правовая информация",
+      "privacy": "Политика конфиденциальности",
+      "offer": "Публичная оферта",
+      "rights": "© 2026 AdaptAI Platform. Все права защищены.",
+      "navTeam": "Команда",
+      "faq": [
+        [
+          "Нужно подключать сразу все модули?",
+          "Нет. Начните с продаж, склада, задач или найма, а остальные разделы подключайте по очереди. ИИ-помощник проведёт через настройку компании."
+        ],
+        [
+          "Какие интеграции есть у AdaptAI?",
+          "Готовые подключения: WhatsApp, Instagram, Kaspi, HeadHunter, Битрикс24, телефония Binotel и OnlinePBX. Для крупных клиентов настраиваем интеграции с внутренними системами и автоматизацию сценариев под ваши процессы."
+        ],
+        [
+          "Как перенести товары и сделки?",
+          "В платформе есть загрузка товаров и интеграция с Битрикс24. Способ переноса зависит от исходных данных - обсудим структуру и проверим результат перед началом работы."
+        ],
+        [
+          "Есть ли поддержка после запуска?",
+          "Да. Отвечаем в чате и помогаем с настройкой и переносом данных. Для крупных компаний проводим персональное внедрение."
+        ]
+      ]
+    },
     showcase: {
       "orbit": {
         "eyebrow": "Одна система",
@@ -673,6 +877,108 @@ const translations = {
       },
       "integrationsTitle": "Сіз қолданып жүрген сервистерге қосылады"
     },
+    team: {
+      "title": "Командамен танысыңыз",
+      "text": "14 ЖИ-көмекші, әрқайсысының өз жұмысы бар. Кім не істейтінін білу үшін көмекшіні немесе бөлімді таңдаңыз.",
+      "all": "Барлығы",
+      "depts": {
+        "sales": "Сатылым",
+        "stock": "Қойма",
+        "team": "Команда",
+        "general": "Жалпы"
+      },
+      "agents": {
+        "assistant": [
+          "ЖИ-ассистент",
+          "Компания құжаттары мен сіздің файлдарыңыз бойынша жауап береді."
+        ],
+        "whatsapp_sales": [
+          "WhatsApp ассистенті",
+          "Клиенттермен компания нұсқаулары, білімі және тауарлары бойынша сөйлеседі."
+        ],
+        "instagram_sales": [
+          "Instagram жауапкері",
+          "Direct-те жауап береді, сұранысты анықтап, байланысты алып, менеджерге береді."
+        ],
+        "scout": [
+          "Барлаушы",
+          "Кімді жоғалтып жатқаныңызды көрсетеді: кім жауап күтеді, кім тоқтап қалды, кім үндемейді."
+        ],
+        "reply_assistant": [
+          "Жауап көмекшісі",
+          "Мәміле кезеңін ескеріп, клиентке үш жауап нұсқасын ұсынады. Жіберетін - адам."
+        ],
+        "dossier": [
+          "Клиент досьесі",
+          "Хат алмасудан қысқаша мазмұн жинайды: клиент кім, не келісілді, не маңызды."
+        ],
+        "followup": [
+          "Үндемейтіндерді қайтару",
+          "Клиент үндемей қалса, оны әңгімеге қалай және қашан қайтаруды ұсынады."
+        ],
+        "instagram_comments": [
+          "Instagram пікірлері",
+          "Посттар мен Reels астында жеке нұсқаулық бойынша жауап береді."
+        ],
+        "visualizer": [
+          "ЖИ-визуализатор",
+          "Тауарды немесе шешімді клиенттің фотосында көрсетеді."
+        ],
+        "warehouse": [
+          "Қойма агенті",
+          "Қалдықтар мен қозғалыстарды біледі, есептің шындықтан қай жерде алшақтағанын табады."
+        ],
+        "kaspi": [
+          "Kaspi көмекшісі",
+          "Таңдалған Kaspi дүкенінің тауарлары мен есептерін талдайды."
+        ],
+        "tasks": [
+          "Тапсырмалар көмекшісі",
+          "Басымдықтарды таңдауға, жұмысты қадамдарға бөлуге және мерзімдерді тексеруге көмектеседі."
+        ],
+        "recruiter": [
+          "ЖИ-рекрутер",
+          "Вакансияларды, кандидаттарды және тесттерді жүргізеді."
+        ],
+        "personnel": [
+          "Команда көмекшісі",
+          "Кадр сұрақтарына жауап беріп, құжаттарға көмектеседі."
+        ]
+      }
+    },
+    rest: {
+      "videoTitle": "AdaptAI туралы көбірек біліңіз",
+      "videoText": "Платформаның бейне-презентациясын көріп, AdaptAI бизнес-процестерді қалай өзгертетінін біліңіз.",
+      "faqTitle": "Жиі қойылатын сұрақтар",
+      "faqText": "Платформа, интеграциялар және енгізу туралы.",
+      "footerText": "Сатылым, қойма, тапсырмалар және команда үшін ЖИ-агенттер мен құралдар. FTT өнімі, Astana Hub резиденті.",
+      "contacts": "Байланыс",
+      "city": "Астана қ.",
+      "product": "Өнім",
+      "legal": "Құқықтық ақпарат",
+      "privacy": "Құпиялылық саясаты",
+      "offer": "Жария оферта",
+      "rights": "© 2026 AdaptAI Platform. Барлық құқықтар қорғалған.",
+      "navTeam": "Команда",
+      "faq": [
+        [
+          "Барлық модульді бірден қосу керек пе?",
+          "Жоқ. Сатылымнан, қоймадан, тапсырмалардан немесе жалдаудан бастаңыз, қалған бөлімдерді кезекпен қосыңыз. ЖИ-көмекші компанияны баптаудан өткізеді."
+        ],
+        [
+          "AdaptAI-да қандай интеграциялар бар?",
+          "Дайын қосылымдар: WhatsApp, Instagram, Kaspi, HeadHunter, Битрикс24, Binotel және OnlinePBX телефониясы. Ірі клиенттер үшін ішкі жүйелермен интеграцияны және сценарийлерді автоматтандыруды процестеріңізге бейімдейміз."
+        ],
+        [
+          "Тауарлар мен мәмілелерді қалай көшіруге болады?",
+          "Платформада тауарларды жүктеу және Битрикс24 интеграциясы бар. Көшіру тәсілі бастапқы деректерге байланысты - құрылымды талқылап, жұмыс басталар алдында нәтижені тексереміз."
+        ],
+        [
+          "Іске қосқаннан кейін қолдау бар ма?",
+          "Иә. Чатта жауап береміз, баптауға және деректерді көшіруге көмектесеміз. Ірі компаниялар үшін жеке енгізу жүргіземіз."
+        ]
+      ]
+    },
     showcase: {
       "orbit": {
         "eyebrow": "Бір жүйе",
@@ -784,28 +1090,6 @@ const partnerLogos = [
   { src: "/partners/central-asia-pipes.png", alt: "Central Asia Pipes" },
 ];
 
-const faqItems = [
-  {
-    question: "Нужно подключать сразу все модули?",
-    answer:
-      "Нет. Начните с продаж, склада, задач или найма, а остальные разделы подключайте по очереди. ИИ-помощник проведёт через настройку компании.",
-  },
-  {
-    question: "Какие интеграции есть у AdaptAI?",
-    answer:
-      "Готовые подключения: WhatsApp, Instagram, Kaspi, HeadHunter, Битрикс24, телефония Binotel и OnlinePBX. Для крупных клиентов настраиваем интеграции с внутренними системами и автоматизацию сценариев под ваши процессы.",
-  },
-  {
-    question: "Как перенести товары и сделки?",
-    answer:
-      "В платформе есть загрузка товаров и интеграция с Битрикс24. Способ переноса зависит от исходных данных - обсудим структуру и проверим результат перед началом работы.",
-  },
-  {
-    question: "Есть ли поддержка после запуска?",
-    answer:
-      "Да. Отвечаем в чате и помогаем с настройкой и переносом данных. Для крупных компаний проводим персональное внедрение.",
-  },
-];
 
 function OverlayCard({ activeTab, t }) {
   if (activeTab === "analyse") {
@@ -959,6 +1243,8 @@ const INTEGRATIONS = [
 ];
 
 
+const FEED_MASCOTS = ["whatsapp_sales", "warehouse", "tasks", "scout", "rop"];
+
 function AgentFeed({ data }) {
   const [shown, setShown] = useState(() =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches ? data.lines.length : 0,
@@ -990,8 +1276,9 @@ function AgentFeed({ data }) {
           <li key={i} className="feed-line flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5">
             <span className="w-11 shrink-0 font-mono text-xs tabular-nums text-ink/45">{line.time}</span>
             <span className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-brand-deep">
-              <span className={`h-1.5 w-1.5 rounded-full ${DOT[line.state]}`} />
+              <img src={`/mascots/${FEED_MASCOTS[i]}.webp`} alt="" className="h-6 w-6 object-contain" />
               {line.agent}
+              {line.state !== "done" && <span className={`h-1.5 w-1.5 rounded-full ${DOT[line.state]}`} />}
             </span>
             <span className="min-w-0 basis-full text-sm text-ink sm:basis-auto sm:flex-1">{line.text}</span>
             {line.state === "wait" && (
@@ -1009,13 +1296,13 @@ function AgentFeed({ data }) {
 
 /* карта агентов: координаты в процентах холста */
 const MAP_NODES = [
-  { id: "ceo", x: 50, y: 15, icon: null },
-  { id: "sales", x: 14, y: 50, parent: "ceo", icon: Handshake },
-  { id: "stock", x: 38, y: 50, parent: "ceo", icon: Package },
-  { id: "tasks", x: 62, y: 50, parent: "ceo", icon: ClipboardCheck },
-  { id: "hiring", x: 86, y: 50, parent: "ceo", icon: Users },
-  { id: "scout", x: 14, y: 85, parent: "sales", icon: Compass },
-  { id: "digest", x: 62, y: 85, parent: "tasks", icon: MessageCircle },
+  { id: "ceo", x: 50, y: 15, mascot: "ceo" },
+  { id: "sales", x: 14, y: 50, parent: "ceo", mascot: "rop" },
+  { id: "stock", x: 38, y: 50, parent: "ceo", mascot: "warehouse" },
+  { id: "tasks", x: 62, y: 50, parent: "ceo", mascot: "tasks" },
+  { id: "hiring", x: 86, y: 50, parent: "ceo", mascot: "recruiter" },
+  { id: "scout", x: 14, y: 85, parent: "sales", mascot: "scout" },
+  { id: "digest", x: 62, y: 85, parent: "tasks", mascot: "assistant" },
 ];
 
 const MOBILE_ORDER = [
@@ -1042,7 +1329,6 @@ function AgentMap({ data }) {
         <ul className="map-canvas space-y-2 p-4 md:hidden">
           {MOBILE_ORDER.map(([id, level]) => {
             const n = byId[id];
-            const Icon = n.icon;
             const isActive = active === id;
             return (
               <li key={id} style={{ paddingLeft: `${level * 22}px` }} className="relative">
@@ -1061,8 +1347,8 @@ function AgentMap({ data }) {
                     isActive ? "border-brand text-ink" : chain.has(id) ? "border-brand/50 text-ink" : "border-line text-ink/75"
                   }`}
                 >
-                  <span className={`grid h-8 w-8 place-items-center rounded-lg ${isActive ? "bg-brand text-white" : "bg-mist text-brand-deep"}`}>
-                    {Icon ? <Icon className="h-4 w-4" /> : <img src="/adaptai-logo.png" alt="" className="h-5 w-5" />}
+                  <span className={`grid h-10 w-10 place-items-center rounded-lg ${isActive ? "bg-brand/15" : "bg-mist"}`}>
+                    <img src={`/mascots/${n.mascot}.webp`} alt="" className="h-8 w-8 object-contain" />
                   </span>
                   {data.nodes[id].name}
                 </button>
@@ -1095,8 +1381,7 @@ function AgentMap({ data }) {
             </svg>
 
             {MAP_NODES.map((n) => {
-              const Icon = n.icon;
-              const isActive = active === n.id;
+                const isActive = active === n.id;
               const inChain = chain.has(n.id);
               return (
                 <button
@@ -1114,11 +1399,11 @@ function AgentMap({ data }) {
                   }`}
                 >
                   <span
-                    className={`grid h-8 w-8 place-items-center rounded-lg ${
-                      isActive ? "bg-brand text-white" : "bg-mist text-brand-deep"
+                    className={`grid h-10 w-10 place-items-center rounded-lg ${
+                      isActive ? "bg-brand/15" : "bg-mist"
                     }`}
                   >
-                    {Icon ? <Icon className="h-4 w-4" /> : <img src="/adaptai-logo.png" alt="" className="h-5 w-5" />}
+                    <img src={`/mascots/${n.mascot}.webp`} alt="" className="h-8 w-8 object-contain" />
                   </span>
                   {data.nodes[n.id].name}
                 </button>
@@ -1197,7 +1482,50 @@ function FeatureRow({ row, flip }) {
 }
 
 export default function App() {
-  const [language, setLanguage] = useState("ru");
+  const [language, setLanguage] = useState(() => {
+    try {
+      const saved = localStorage.getItem("adaptai-lang");
+      if (["ru", "en", "kz"].includes(saved)) return saved;
+    } catch {
+      /* хранилище недоступно - язык по умолчанию */
+    }
+    return "ru";
+  });
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    document.documentElement.lang = language === "kz" ? "kk" : language;
+    try {
+      localStorage.setItem("adaptai-lang", language);
+    } catch {
+      /* без сохранения */
+    }
+  }, [language]);
+
+  /* подсветка пункта меню по текущей секции */
+  useEffect(() => {
+    const ids = ["modules", "agents", "team", "about", "faq"];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveSection(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const switchLanguage = (lang) => {
+    setIsLangMenuOpen(false);
+    if (lang === language) return;
+    const apply = () => flushSync(() => setLanguage(lang));
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (document.startViewTransition && !calm) document.startViewTransition(apply);
+    else apply();
+  };
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("sales");
   const [openFaq, setOpenFaq] = useState(0);
@@ -1274,6 +1602,7 @@ export default function App() {
   const navLinks = [
     { href: "#modules", label: t.ui.navModules },
     { href: "#agents", label: t.ui.navAgents },
+    { href: "#team", label: t.rest.navTeam },
     { href: "#about", label: t.ui.navVideo },
     { href: "#faq", label: "FAQ" },
   ];
@@ -1320,7 +1649,14 @@ export default function App() {
 
           <div className="hidden items-center gap-8 lg:flex">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-sm text-ink/65 transition-colors hover:text-ink">
+              <a
+                key={link.href}
+                href={link.href}
+                aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+                className={`nav-link relative py-1 text-sm transition-colors ${
+                  activeSection === link.href.slice(1) ? "text-ink" : "text-ink/60 hover:text-ink"
+                }`}
+              >
                 {link.label}
               </a>
             ))}
@@ -1344,10 +1680,7 @@ export default function App() {
                   {["ru", "en", "kz"].map((lang) => (
                     <button
                       key={lang}
-                      onClick={() => {
-                        setLanguage(lang);
-                        setIsLangMenuOpen(false);
-                      }}
+                      onClick={() => switchLanguage(lang)}
                       className={`block w-full rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors ${
                         language === lang ? "bg-ink text-white" : "text-ink/70 hover:bg-mist"
                       }`}
@@ -1481,6 +1814,8 @@ export default function App() {
 
         <AgentMap data={t.map} />
 
+        <TeamShelf data={t.team} />
+
         <section className="mt-28 space-y-24 md:mt-40 md:space-y-32">
           {rows.map((row, i) => (
             <FeatureRow key={row.id} row={row} flip={i % 2 === 1} />
@@ -1506,15 +1841,15 @@ export default function App() {
         {/* видео */}
         <section id="about" className="mt-28 scroll-mt-24 md:mt-40">
           <SectionHead
-            title="Узнайте больше об AdaptAI"
-            text="Посмотрите видео-презентацию платформы и узнайте, как AdaptAI меняет бизнес-процессы."
+            title={t.rest.videoTitle}
+            text={t.rest.videoText}
           />
           <div className="mt-10 overflow-hidden rounded-2xl border border-line">
             <div className="relative w-full pb-[56.25%]">
               <iframe
                 className="absolute inset-0 h-full w-full"
                 src="https://www.youtube.com/embed/NG5hrOvnOrg"
-                title="Узнайте больше об AdaptAI"
+                title={t.rest.videoTitle}
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
@@ -1527,24 +1862,34 @@ export default function App() {
         {/* FAQ */}
         <section id="faq" className="mt-28 grid scroll-mt-24 gap-10 md:mt-40 md:grid-cols-[1fr_1.4fr] md:gap-16">
           <div>
-            <h2 className="font-display text-[2rem] font-medium tracking-[-0.03em] text-ink md:text-5xl">Частые вопросы</h2>
-            <p className="mt-5 text-ink/65">О платформе, интеграциях и внедрении AdaptAI.</p>
+            <h2 className="font-display text-[2rem] font-medium tracking-[-0.03em] text-ink md:text-5xl">{t.rest.faqTitle}</h2>
+            <p className="mt-5 text-ink/65">{t.rest.faqText}</p>
           </div>
 
           <div className="border-t border-line">
-            {faqItems.map((item, index) => {
+            {t.rest.faq.map(([question, answer], index) => {
               const isOpen = openFaq === index;
               return (
-                <div key={item.question} className="border-b border-line">
+                <div key={index} className="border-b border-line">
                   <button
                     onClick={() => setOpenFaq(isOpen ? -1 : index)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                    aria-controls={`faq-${index}`}
+                    className="group flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
-                    <span className="text-base font-medium text-ink md:text-lg">{item.question}</span>
-                    <Plus className={`h-5 w-5 shrink-0 text-ink/50 transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`} />
+                    <span className="text-base font-medium text-ink transition-colors group-hover:text-brand-deep md:text-lg">{question}</span>
+                    <Plus className={`h-5 w-5 shrink-0 text-ink/50 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`} />
                   </button>
-                  {isOpen && <p className="max-w-[65ch] pb-5 pr-8 leading-relaxed text-ink/70">{item.answer}</p>}
+                  <div
+                    id={`faq-${index}`}
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="max-w-[65ch] pb-5 pr-8 leading-relaxed text-ink/70">{answer}</p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -1588,21 +1933,21 @@ export default function App() {
                 <span className="font-display text-sm font-semibold text-ink">AdaptAI</span>
               </div>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/60">
-                ИИ-агенты и инструменты для продаж, склада, задач и команды. Продукт FTT, резидент Astana Hub.
+                {t.rest.footerText}
               </p>
             </div>
 
             <div>
-              <p className="text-sm font-medium text-ink">Контакты</p>
+              <p className="text-sm font-medium text-ink">{t.rest.contacts}</p>
               <ul className="mt-3 space-y-2 text-sm text-ink/60">
                 <li><a href="tel:+77010704342" className="hover:text-ink">+7 701 070 4342</a></li>
                 <li><a href="mailto:ftt@fttclub.kz" className="hover:text-ink">ftt@fttclub.kz</a></li>
-                <li>г. Астана</li>
+                <li>{t.rest.city}</li>
               </ul>
             </div>
 
             <div>
-              <p className="text-sm font-medium text-ink">Продукт</p>
+              <p className="text-sm font-medium text-ink">{t.rest.product}</p>
               <ul className="mt-3 space-y-2 text-sm text-ink/60">
                 {navLinks.map((link) => (
                   <li key={link.href}>
@@ -1613,16 +1958,16 @@ export default function App() {
             </div>
 
             <div>
-              <p className="text-sm font-medium text-ink">Правовая информация</p>
+              <p className="text-sm font-medium text-ink">{t.rest.legal}</p>
               <ul className="mt-3 space-y-2 text-sm text-ink/60">
                 <li>
                   <a href="https://fttclub.kz/privacy_policy.html" target="_blank" rel="noreferrer" className="transition-colors hover:text-ink">
-                    Политика конфиденциальности
+                    {t.rest.privacy}
                   </a>
                 </li>
                 <li>
                   <a href="https://fttclub.kz/offer.html" target="_blank" rel="noreferrer" className="transition-colors hover:text-ink">
-                    Публичная оферта
+                    {t.rest.offer}
                   </a>
                 </li>
               </ul>
@@ -1630,7 +1975,7 @@ export default function App() {
           </div>
 
           <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line py-5 text-xs text-ink/45 sm:flex-row">
-            <span>© 2026 AdaptAI Platform. Все права защищены.</span>
+            <span>{t.rest.rights}</span>
             <span>{t.ui.status}</span>
           </div>
         </footer>
