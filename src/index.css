@@ -28,6 +28,26 @@ html {
   text-wrap: balance;
 }
 
+/* логотипы интеграций: спокойные по умолчанию, в цвете при наведении */
+.logo-cell img,
+.logo-cell span {
+  filter: grayscale(1);
+  opacity: 0.72;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.logo-cell:hover img,
+.logo-cell:hover span {
+  filter: none;
+  opacity: 1;
+}
+@media (hover: none) {
+  .logo-cell img,
+  .logo-cell span {
+    filter: none;
+    opacity: 1;
+  }
+}
+
 /* холст карты агентов: точечная разметка, как в редакторе карты в продукте */
 .map-canvas {
   background-image: radial-gradient(rgba(6, 38, 44, 0.13) 1px, transparent 1.2px);

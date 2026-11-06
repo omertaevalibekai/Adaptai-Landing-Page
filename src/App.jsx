@@ -947,7 +947,130 @@ function LoopVideo({ name, className = "", fit = "object-contain" }) {
   );
 }
 
-const INTEGRATIONS = ["WhatsApp", "Instagram", "Kaspi", "HeadHunter", "Битрикс24", "Binotel", "OnlinePBX"];
+const INTEGRATIONS = [
+  { name: "WhatsApp", src: "/integrations/whatsapp.svg", mark: true },
+  { name: "Instagram", src: "/integrations/instagram.svg", mark: true },
+  { name: "Kaspi.kz", src: "/integrations/kaspi.svg" },
+  { name: "HeadHunter", src: "/integrations/headhunter.svg", mark: true },
+  { name: "Битрикс24", src: "/integrations/bitrix24.svg" },
+  { name: "Binotel", src: "/integrations/binotel.svg", small: true },
+  { name: "OnlinePBX", src: "/integrations/onlinepbx.svg", mark: true },
+];
+
+/* живой фон: сеть агентов - узлы дрейфуют, связи вспыхивают, по ним бегут импульсы */
+function NetworkBackground() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext("2d");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const LINK = 160;
+    let w = 0, h = 0, dpr = 1, nodes = [], pulses = [], raf = 0, last = 0, spawn = 0;
+    const pointer = { x: -9999, y: -9999 };
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(90, Math.round((w * h) / 18000));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() < 0.15 ? 2.6 : 1.6,
+      }));
+      pulses = [];
+    };
+
+    const draw = (time) => {
+      const dt = Math.min(48, time - (last || time));
+      last = time;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const n of nodes) {
+        n.x += n.vx * dt * 0.06;
+        n.y += n.vy * dt * 0.06;
+        if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+        if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+      }
+
+      const links = [];
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < LINK) {
+            links.push([a, b]);
+            ctx.strokeStyle = `rgba(8, 126, 144, ${0.2 * (1 - d / LINK)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        const n = nodes[i];
+        const dp = Math.hypot(n.x - pointer.x, n.y - pointer.y);
+        if (dp < 200) {
+          ctx.strokeStyle = `rgba(11, 184, 211, ${0.35 * (1 - dp / 200)})`;
+          ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+        }
+      }
+
+      for (const n of nodes) {
+        ctx.fillStyle = n.r > 2 ? "rgba(11, 184, 211, 0.55)" : "rgba(6, 38, 44, 0.22)";
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+      }
+
+      spawn -= dt;
+      if (!reduce && spawn <= 0 && links.length) {
+        const [a, b] = links[Math.floor(Math.random() * links.length)];
+        pulses.push({ a, b, t: 0 });
+        spawn = 260;
+      }
+      pulses = pulses.filter((p) => p.t <= 1);
+      for (const p of pulses) {
+        p.t += dt / 1300;
+        const e = 1 - Math.pow(1 - Math.min(p.t, 1), 3);
+        const x = p.a.x + (p.b.x - p.a.x) * e;
+        const y = p.a.y + (p.b.y - p.a.y) * e;
+        const fade = Math.sin(Math.PI * Math.min(p.t, 1));
+        const g = ctx.createRadialGradient(x, y, 0, x, y, 9);
+        g.addColorStop(0, `rgba(11, 184, 211, ${0.75 * fade})`);
+        g.addColorStop(1, "rgba(11, 184, 211, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fill();
+      }
+
+      if (!reduce) raf = requestAnimationFrame(draw);
+    };
+
+    const onMove = (e) => { pointer.x = e.clientX; pointer.y = e.clientY; };
+    const onLeave = () => { pointer.x = pointer.y = -9999; };
+    const onVis = () => {
+      cancelAnimationFrame(raf);
+      if (!document.hidden && !reduce) { last = 0; raf = requestAnimationFrame(draw); }
+    };
+
+    resize();
+    raf = requestAnimationFrame(draw);
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("pointerleave", onLeave);
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerleave", onLeave);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+
+  return <canvas ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 h-full w-full" />;
+}
 
 function AgentFeed({ data }) {
   const [shown, setShown] = useState(() =>
@@ -1301,6 +1424,8 @@ export default function App() {
         <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-white/0 to-white" />
       </div>
 
+      <NetworkBackground />
+
       <header className="sticky top-0 z-30 border-b border-line/80 bg-white/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-6">
           <a href="#" className="flex items-center gap-2">
@@ -1403,13 +1528,18 @@ export default function App() {
         {/* интеграции */}
         <section className="mt-20 md:mt-28">
           <p className="text-center text-sm text-ink/55">{t.map.integrationsTitle}</p>
-          <ul className="mt-5 grid grid-cols-2 overflow-hidden rounded-2xl border border-line sm:grid-cols-4 lg:grid-cols-7">
-            {INTEGRATIONS.map((name) => (
+          <ul className="mt-5 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-white sm:grid-cols-4 lg:grid-cols-7">
+            {INTEGRATIONS.map((item) => (
               <li
-                key={name}
-                className="-mb-px -mr-px flex h-16 last:col-span-2 sm:last:col-span-1 items-center justify-center border-b border-r border-line text-[15px] font-medium tracking-[-0.01em] text-ink/80"
+                key={item.name}
+                className="logo-cell group -mb-px -mr-px flex h-20 items-center justify-center gap-2.5 border-b border-r border-line px-4 last:col-span-2 sm:last:col-span-1"
               >
-                {name}
+                <img
+                  src={item.src}
+                  alt={item.mark ? "" : item.name}
+                  className={`${item.mark ? "h-7 w-7" : item.small ? "h-[18px] w-auto" : "h-6 w-auto max-w-[120px]"} object-contain`}
+                />
+                {item.mark && <span className="text-[15px] font-semibold tracking-[-0.01em] text-ink/85">{item.name}</span>}
               </li>
             ))}
           </ul>
