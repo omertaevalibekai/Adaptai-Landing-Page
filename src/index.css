@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Unbounded:wght@500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -15,21 +15,45 @@ body {
   outline-offset: 2px;
 }
 
-/* чертёжная сетка поверх 3D первого экрана */
-.tech-grid {
-  background-image:
-    linear-gradient(to right, rgba(6, 38, 44, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(6, 38, 44, 0.07) 1px, transparent 1px);
-  background-size: 72px 72px;
-  background-position: center top;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 85%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 85%);
+::selection {
+  background: rgba(11, 184, 211, 0.22);
+  color: #06262c;
 }
-.tech-grid-soft {
-  background-size: 40px 40px;
-  -webkit-mask-image: linear-gradient(to left, #000, transparent 70%);
-  mask-image: linear-gradient(to left, #000, transparent 70%);
+html {
+  caret-color: #0bb8d3;
+  scrollbar-color: #b9d3d8 #ffffff;
+  text-underline-offset: 0.2em;
 }
+.text-balance {
+  text-wrap: balance;
+}
+
+/* холст карты агентов: точечная разметка, как в редакторе карты в продукте */
+.map-canvas {
+  background-image: radial-gradient(rgba(6, 38, 44, 0.13) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: 11px 11px;
+}
+@keyframes flow {
+  to { stroke-dashoffset: -24; }
+}
+.flow {
+  stroke-dasharray: 2 10;
+  animation: flow 1.6s linear infinite;
+}
+.flow-on {
+  stroke-dasharray: 6 6;
+  animation-duration: 0.9s;
+}
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.map-detail > * {
+  animation: detailIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.map-detail > *:nth-child(2) { animation-delay: 0.05s; }
+.map-detail > *:nth-child(3) { animation-delay: 0.1s; }
 
 /* единственная входная последовательность - первый экран */
 @keyframes heroIn {
@@ -50,12 +74,12 @@ body {
   from { opacity: 0; transform: translateX(-6px); background-color: rgba(11, 184, 211, 0.12); }
   to { opacity: 1; transform: none; background-color: transparent; }
 }
-.console-line {
+.feed-line {
   animation: lineIn 0.6s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-in, .console-line { animation: none; opacity: 1; }
+  .hero-in, .feed-line { animation: none; opacity: 1; }
 }
 
 html {

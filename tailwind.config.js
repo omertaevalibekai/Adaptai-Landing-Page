@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ['"Geist"', "system-ui", "sans-serif"],
         mono: ['"Geist Mono"', "ui-monospace", "monospace"],
+        display: ['"Unbounded"', '"Geist"', "sans-serif"],
       },
     },
   },

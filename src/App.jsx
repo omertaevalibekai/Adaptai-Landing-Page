@@ -7,7 +7,9 @@ import {
   Check,
   ChevronDown,
   ClipboardCheck,
+  Compass,
   Handshake,
+  MessageCircle,
   Package,
   Play,
   Plus,
@@ -37,6 +39,7 @@ const translations = {
       deploy: "Analytics",
     },
     ui: {
+      "skip": "Skip to content",
       "navModules": "Modules",
       "navAgents": "AI agents",
       "navVideo": "Video",
@@ -90,6 +93,80 @@ const translations = {
           "text": "7% discount on the deal"
         }
       ]
+    },
+    map: {
+      "title": "Agents work as a team",
+      "text": "The CEO agent distributes work between department agents, and they pass tasks further down. You define the structure and permissions, agents take over the routine. Select an agent to see what it does.",
+      "hint": "Scroll the map sideways",
+      "exampleLabel": "Example action",
+      "nodes": {
+        "ceo": {
+          "name": "CEO agent",
+          "role": "Distributes work between departments",
+          "does": [
+            "Receives goals from the owner",
+            "Assigns tasks to department agents",
+            "Makes sure nothing gets lost"
+          ],
+          "log": "Task “Close this week's deals” passed to the sales agent"
+        },
+        "sales": {
+          "name": "Sales agent",
+          "role": "Moves deals through the pipeline",
+          "does": [
+            "Creates deals from WhatsApp, Instagram and Kaspi leads",
+            "Moves deals through pipeline stages",
+            "Discounts above the limit need your approval"
+          ],
+          "log": "New Instagram lead - deal created"
+        },
+        "scout": {
+          "name": "Scout",
+          "role": "Suggests the next step",
+          "does": [
+            "Reviews the deal history",
+            "Suggests the next action to the manager"
+          ],
+          "log": "Next step: send the offer before 15:00"
+        },
+        "stock": {
+          "name": "Inventory agent",
+          "role": "Links products and deals",
+          "does": [
+            "Reserves stock for a deal",
+            "Accounts for returns in revenue"
+          ],
+          "log": "Stock reserved for the deal"
+        },
+        "tasks": {
+          "name": "Tasks agent",
+          "role": "Keeps the team on pace",
+          "does": [
+            "Assigns deal tasks to managers",
+            "Tracks what is done and what is overdue"
+          ],
+          "log": "Manager assigned “Prepare the contract”"
+        },
+        "digest": {
+          "name": "Daily digest",
+          "role": "Results in WhatsApp",
+          "does": [
+            "Collects deal and task results",
+            "Sends the digest to the owner in WhatsApp"
+          ],
+          "log": "Daily results sent to the owner"
+        },
+        "hiring": {
+          "name": "Hiring agent",
+          "role": "Screens candidates",
+          "does": [
+            "Scores HeadHunter applications",
+            "Sends candidates tests in WhatsApp"
+          ],
+          "log": "12 applications scored, 3 candidates shortlisted"
+        }
+      },
+      "integrationsTitle": "Connects to the services you already use"
     },
     showcase: {
       "orbit": {
@@ -214,6 +291,7 @@ const translations = {
       deploy: "Аналитика",
     },
     ui: {
+      "skip": "Перейти к содержанию",
       "navModules": "Модули",
       "navAgents": "ИИ-агенты",
       "navVideo": "Видео",
@@ -267,6 +345,80 @@ const translations = {
           "text": "Скидка 7% по сделке"
         }
       ]
+    },
+    map: {
+      "title": "Агенты работают как команда",
+      "text": "CEO-агент распределяет работу между агентами отделов, а те передают задачи дальше. Вы задаёте структуру и права, агенты берут на себя рутину. Нажмите на агента, чтобы увидеть, что он делает.",
+      "hint": "Схема прокручивается вбок",
+      "exampleLabel": "Пример действия",
+      "nodes": {
+        "ceo": {
+          "name": "CEO-агент",
+          "role": "Распределяет работу между отделами",
+          "does": [
+            "Получает цели от руководителя",
+            "Ставит задачи агентам отделов",
+            "Следит, чтобы ничего не потерялось"
+          ],
+          "log": "Задача «Закрыть сделки недели» передана агенту продаж"
+        },
+        "sales": {
+          "name": "Агент продаж",
+          "role": "Ведёт сделки по воронке",
+          "does": [
+            "Создаёт сделки из заявок WhatsApp, Instagram и Kaspi",
+            "Двигает сделки по этапам воронки",
+            "Скидки выше лимита - только после подтверждения"
+          ],
+          "log": "Новый лид из Instagram - сделка создана"
+        },
+        "scout": {
+          "name": "Разведчик",
+          "role": "Подсказывает следующий шаг",
+          "does": [
+            "Анализирует историю сделки",
+            "Предлагает следующее действие менеджеру"
+          ],
+          "log": "Следующий шаг: отправить КП до 15:00"
+        },
+        "stock": {
+          "name": "Агент склада",
+          "role": "Связывает товары и сделки",
+          "does": [
+            "Резервирует товар под сделку",
+            "Учитывает возвраты в выручке"
+          ],
+          "log": "Товар зарезервирован под сделку"
+        },
+        "tasks": {
+          "name": "Агент задач",
+          "role": "Держит команду в ритме",
+          "does": [
+            "Ставит задачи менеджерам по сделкам",
+            "Отмечает, что сделано и что горит"
+          ],
+          "log": "Менеджеру поставлена задача «Подготовить договор»"
+        },
+        "digest": {
+          "name": "Сводка дня",
+          "role": "Итоги в WhatsApp",
+          "does": [
+            "Собирает итоги по сделкам и задачам",
+            "Отправляет сводку руководителю в WhatsApp"
+          ],
+          "log": "Итоги дня отправлены руководителю"
+        },
+        "hiring": {
+          "name": "Агент найма",
+          "role": "Отбирает кандидатов",
+          "does": [
+            "Оценивает отклики с HeadHunter",
+            "Отправляет кандидатам тесты в WhatsApp"
+          ],
+          "log": "12 откликов оценены, 3 кандидата прошли отбор"
+        }
+      },
+      "integrationsTitle": "Подключается к сервисам, которыми вы уже пользуетесь"
     },
     showcase: {
       "orbit": {
@@ -391,6 +543,7 @@ const translations = {
       deploy: "Аналитика",
     },
     ui: {
+      "skip": "Мазмұнға өту",
       "navModules": "Модульдер",
       "navAgents": "ЖИ-агенттер",
       "navVideo": "Бейне",
@@ -444,6 +597,80 @@ const translations = {
           "text": "Мәміле бойынша 7% жеңілдік"
         }
       ]
+    },
+    map: {
+      "title": "Агенттер команда болып жұмыс істейді",
+      "text": "CEO-агент жұмысты бөлім агенттері арасында бөледі, ал олар тапсырмаларды әрі қарай береді. Сіз құрылым мен рұқсаттарды белгілейсіз, күнделікті жұмысты агенттер атқарады. Агенттің не істейтінін көру үшін оны таңдаңыз.",
+      "hint": "Сызбаны бүйірге жылжытыңыз",
+      "exampleLabel": "Әрекет мысалы",
+      "nodes": {
+        "ceo": {
+          "name": "CEO-агент",
+          "role": "Жұмысты бөлімдерге бөледі",
+          "does": [
+            "Басшыдан мақсаттарды алады",
+            "Бөлім агенттеріне тапсырма береді",
+            "Ештеңе жоғалмауын қадағалайды"
+          ],
+          "log": "«Апта мәмілелерін жабу» тапсырмасы сатылым агентіне берілді"
+        },
+        "sales": {
+          "name": "Сатылым агенті",
+          "role": "Мәмілелерді воронка бойынша жүргізеді",
+          "does": [
+            "WhatsApp, Instagram және Kaspi өтінімдерінен мәміле құрады",
+            "Мәмілелерді кезеңдер бойынша жылжытады",
+            "Лимиттен жоғары жеңілдік - тек растаудан кейін"
+          ],
+          "log": "Instagram-нан жаңа лид - мәміле құрылды"
+        },
+        "scout": {
+          "name": "Барлаушы",
+          "role": "Келесі қадамды ұсынады",
+          "does": [
+            "Мәміле тарихын талдайды",
+            "Менеджерге келесі әрекетті ұсынады"
+          ],
+          "log": "Келесі қадам: коммерциялық ұсынысты 15:00-ге дейін жіберу"
+        },
+        "stock": {
+          "name": "Қойма агенті",
+          "role": "Тауарлар мен мәмілелерді байланыстырады",
+          "does": [
+            "Мәмілеге тауар резервтейді",
+            "Түсімде қайтаруларды ескереді"
+          ],
+          "log": "Тауар мәмілеге резервтелді"
+        },
+        "tasks": {
+          "name": "Тапсырмалар агенті",
+          "role": "Команданы ырғақта ұстайды",
+          "does": [
+            "Менеджерлерге мәміле бойынша тапсырма береді",
+            "Не орындалғанын және не кешігіп жатқанын белгілейді"
+          ],
+          "log": "Менеджерге «Шартты дайындау» тапсырмасы берілді"
+        },
+        "digest": {
+          "name": "Күн қорытындысы",
+          "role": "Қорытынды WhatsApp-та",
+          "does": [
+            "Мәмілелер мен тапсырмалар қорытындысын жинайды",
+            "Басшыға WhatsApp-қа жібереді"
+          ],
+          "log": "Күн қорытындысы басшыға жіберілді"
+        },
+        "hiring": {
+          "name": "Жалдау агенті",
+          "role": "Кандидаттарды іріктейді",
+          "does": [
+            "HeadHunter өтініштерін бағалайды",
+            "Кандидаттарға WhatsApp-та тест жібереді"
+          ],
+          "log": "12 өтініш бағаланды, 3 кандидат іріктеуден өтті"
+        }
+      },
+      "integrationsTitle": "Сіз қолданып жүрген сервистерге қосылады"
     },
     showcase: {
       "orbit": {
@@ -693,27 +920,6 @@ function OverlayCard({ activeTab, t }) {
   );
 }
 
-function Cross({ className = "" }) {
-  return (
-    <span aria-hidden="true" className={`pointer-events-none absolute h-3 w-3 ${className}`}>
-      <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink/40" />
-      <span className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-ink/40" />
-    </span>
-  );
-}
-
-function Frame({ children, className = "" }) {
-  return (
-    <div className={`relative border border-line bg-white ${className}`}>
-      <Cross className="-left-1.5 -top-1.5" />
-      <Cross className="-right-1.5 -top-1.5" />
-      <Cross className="-left-1.5 -bottom-1.5" />
-      <Cross className="-right-1.5 -bottom-1.5" />
-      {children}
-    </div>
-  );
-}
-
 function LoopVideo({ name, className = "", fit = "object-contain" }) {
   return (
     <div className={`relative ${className}`}>
@@ -741,116 +947,242 @@ function LoopVideo({ name, className = "", fit = "object-contain" }) {
   );
 }
 
-const STATE_STYLE = {
-  done: { dot: "bg-brand", text: "text-ink" },
-  hint: { dot: "bg-amber-400", text: "text-ink" },
-  wait: { dot: "bg-ink animate-pulse", text: "text-ink" },
-};
+const INTEGRATIONS = ["WhatsApp", "Instagram", "Kaspi", "HeadHunter", "Битрикс24", "Binotel", "OnlinePBX"];
 
-function AgentConsole({ data }) {
+function AgentFeed({ data }) {
   const [shown, setShown] = useState(() =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches ? data.lines.length : 0,
   );
 
   useEffect(() => {
     if (shown >= data.lines.length) return undefined;
-    const timer = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 900 : 650);
+    const timer = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 1000 : 700);
     return () => clearTimeout(timer);
   }, [shown, data.lines.length]);
 
   const working = shown < data.lines.length;
+  const DOT = { done: "bg-brand", hint: "bg-amber-400", wait: "bg-ink" };
 
   return (
-    <Frame className="mx-auto w-full max-w-3xl text-left shadow-[0_30px_80px_-40px_rgba(8,126,144,0.45)]">
-      <div className="flex items-center justify-between border-b border-line px-4 py-3">
+    <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-line bg-white text-left">
+      <div className="flex items-center justify-between border-b border-line bg-mist px-4 py-3">
         <div className="flex items-center gap-2.5">
           <img src="/adaptai-logo.png" alt="" className="h-5 w-5 object-contain" />
           <span className="text-sm font-medium text-ink">{data.title}</span>
         </div>
-        <span className="inline-flex items-center gap-2 text-xs text-ink/60">
-          <span className={`h-1.5 w-1.5 rounded-full ${working ? "bg-brand animate-pulse" : "bg-emerald-500"}`} />
+        <span className="inline-flex items-center gap-2 text-xs text-ink/60" aria-live="polite">
+          <span className={`h-1.5 w-1.5 rounded-full ${working ? "bg-brand animate-pulse" : "bg-ink"}`} />
           {working ? data.working : data.idle}
         </span>
       </div>
-      <ol className="min-h-[300px] divide-y divide-line/70 font-mono text-[13px] leading-6 md:min-h-[270px]">
-        {data.lines.slice(0, shown).map((line, i) => {
-          const s = STATE_STYLE[line.state];
-          return (
-            <li key={i} className="console-line flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5">
-              <span className="w-12 shrink-0 text-ink/40">{line.time}</span>
-              <span className="inline-flex shrink-0 items-center gap-2 text-brand-deep">
-                <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
-                {line.agent}
+      <ol className="min-h-[300px] divide-y divide-line/70 sm:min-h-[212px]">
+        {data.lines.slice(0, shown).map((line, i) => (
+          <li key={i} className="feed-line flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5">
+            <span className="w-11 shrink-0 font-mono text-xs tabular-nums text-ink/45">{line.time}</span>
+            <span className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-brand-deep">
+              <span className={`h-1.5 w-1.5 rounded-full ${DOT[line.state]}`} />
+              {line.agent}
+            </span>
+            <span className="min-w-0 basis-full text-sm text-ink sm:basis-auto sm:flex-1">{line.text}</span>
+            {line.state === "wait" && (
+              <span className="ml-auto inline-flex gap-2 text-xs">
+                <span className="rounded-md bg-ink px-2.5 py-1 font-medium text-white">{data.confirm}</span>
+                <span className="rounded-md border border-line px-2.5 py-1 text-ink/70">{data.reject}</span>
               </span>
-              <span className={`min-w-0 basis-full font-sans text-sm sm:basis-auto sm:flex-1 ${s.text}`}>{line.text}</span>
-              {line.state === "wait" && (
-                <span className="ml-auto inline-flex gap-2 font-sans text-xs">
-                  <span className="rounded-md bg-ink px-2.5 py-1 font-medium text-white">{data.confirm}</span>
-                  <span className="rounded-md border border-line px-2.5 py-1 text-ink/70">{data.reject}</span>
-                </span>
-              )}
-            </li>
-          );
-        })}
+            )}
+          </li>
+        ))}
       </ol>
-    </Frame>
+    </div>
   );
 }
 
-function SectionHead({ label, title, text, id }) {
+/* карта агентов: координаты в процентах холста */
+const MAP_NODES = [
+  { id: "ceo", x: 50, y: 15, icon: null },
+  { id: "sales", x: 14, y: 50, parent: "ceo", icon: Handshake },
+  { id: "stock", x: 38, y: 50, parent: "ceo", icon: Package },
+  { id: "tasks", x: 62, y: 50, parent: "ceo", icon: ClipboardCheck },
+  { id: "hiring", x: 86, y: 50, parent: "ceo", icon: Users },
+  { id: "scout", x: 14, y: 85, parent: "sales", icon: Compass },
+  { id: "digest", x: 62, y: 85, parent: "tasks", icon: MessageCircle },
+];
+
+const MOBILE_ORDER = [
+  ["ceo", 0], ["sales", 1], ["scout", 2], ["stock", 1], ["tasks", 1], ["digest", 2], ["hiring", 1],
+];
+
+function linkPath(a, b) {
+  const my = (a.y + b.y) / 2;
+  return `M ${a.x} ${a.y} C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
+}
+
+function AgentMap({ data }) {
+  const [active, setActive] = useState("sales");
+  const byId = Object.fromEntries(MAP_NODES.map((n) => [n.id, n]));
+  const chain = new Set();
+  for (let n = byId[active]; n; n = byId[n.parent]) chain.add(n.id);
+  const node = data.nodes[active];
+
   return (
-    <div id={id} className="grid gap-4 md:grid-cols-[1fr_1fr] md:items-end md:gap-12">
-      <div>
-        <p className="inline-flex items-center gap-2 text-sm font-medium text-brand-deep">
-          <span className="h-2 w-2 bg-brand" />
-          {label}
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-ink md:text-5xl">{title}</h2>
+    <section id="agents" className="mt-16 scroll-mt-24 md:mt-24">
+      <SectionHead title={data.title} text={data.text} />
+
+      <div className="relative mt-10 overflow-hidden rounded-2xl border border-line bg-white">
+        <ul className="map-canvas space-y-2 p-4 md:hidden">
+          {MOBILE_ORDER.map(([id, level]) => {
+            const n = byId[id];
+            const Icon = n.icon;
+            const isActive = active === id;
+            return (
+              <li key={id} style={{ paddingLeft: `${level * 22}px` }} className="relative">
+                {level > 0 && (
+                  <span
+                    aria-hidden="true"
+                    className={`absolute top-1/2 h-px w-3 ${chain.has(id) ? "bg-brand" : "bg-line"}`}
+                    style={{ left: `${level * 22 - 14}px` }}
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setActive(id)}
+                  aria-pressed={isActive}
+                  className={`flex w-full items-center gap-2.5 rounded-xl border bg-white py-2 pl-2 pr-3 text-left text-sm font-medium ${
+                    isActive ? "border-brand text-ink" : chain.has(id) ? "border-brand/50 text-ink" : "border-line text-ink/75"
+                  }`}
+                >
+                  <span className={`grid h-8 w-8 place-items-center rounded-lg ${isActive ? "bg-brand text-white" : "bg-mist text-brand-deep"}`}>
+                    {Icon ? <Icon className="h-4 w-4" /> : <img src="/adaptai-logo.png" alt="" className="h-5 w-5" />}
+                  </span>
+                  {data.nodes[id].name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="hidden md:block">
+          <div className="map-canvas relative h-[480px]">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden="true">
+              {MAP_NODES.filter((n) => n.parent).map((n) => {
+                const d = linkPath(byId[n.parent], n);
+                const on = chain.has(n.id);
+                return (
+                  <g key={n.id}>
+                    <path d={d} fill="none" stroke="#DCE9EC" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+                    <path
+                      d={d}
+                      fill="none"
+                      stroke={on ? "#0BB8D3" : "#9FD9E3"}
+                      strokeWidth={on ? 2.5 : 1.5}
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                      className={on ? "flow flow-on" : "flow"}
+                    />
+                  </g>
+                );
+              })}
+            </svg>
+
+            {MAP_NODES.map((n) => {
+              const Icon = n.icon;
+              const isActive = active === n.id;
+              const inChain = chain.has(n.id);
+              return (
+                <button
+                  key={n.id}
+                  type="button"
+                  onClick={() => setActive(n.id)}
+                  aria-pressed={isActive}
+                  style={{ left: `${n.x}%`, top: `${n.y}%` }}
+                  className={`absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2.5 whitespace-nowrap rounded-xl border bg-white py-2 pl-2 pr-4 text-sm font-medium transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-[calc(50%+2px)] ${
+                    isActive
+                      ? "border-brand text-ink shadow-[0_10px_30px_-12px_rgba(8,126,144,0.55)]"
+                      : inChain
+                        ? "border-brand/50 text-ink"
+                        : "border-line text-ink/75 hover:border-ink/25"
+                  }`}
+                >
+                  <span
+                    className={`grid h-8 w-8 place-items-center rounded-lg ${
+                      isActive ? "bg-brand text-white" : "bg-mist text-brand-deep"
+                    }`}
+                  >
+                    {Icon ? <Icon className="h-4 w-4" /> : <img src="/adaptai-logo.png" alt="" className="h-5 w-5" />}
+                  </span>
+                  {data.nodes[n.id].name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div key={active} className="map-detail grid gap-6 border-t border-line p-6 md:grid-cols-[1fr_1.2fr_1.2fr] md:gap-10 md:p-8">
+          <div>
+            <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-ink">{node.name}</h3>
+            <p className="mt-2 text-ink/65">{node.role}</p>
+          </div>
+          <ul className="space-y-2.5">
+            {node.does.map((d) => (
+              <li key={d} className="flex gap-3 text-[15px] text-ink">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} />
+                {d}
+              </li>
+            ))}
+          </ul>
+          <div className="rounded-xl bg-mist p-4">
+            <p className="text-xs text-ink/55">{data.exampleLabel}</p>
+            <p className="mt-1.5 text-[15px] text-ink">{node.log}</p>
+          </div>
+        </div>
       </div>
+    </section>
+  );
+}
+
+function SectionHead({ title, text, center = false }) {
+  if (center) {
+    return (
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="font-display text-[2rem] font-medium leading-[1.08] tracking-[-0.03em] text-ink text-balance md:text-5xl">
+          {title}
+        </h2>
+        {text && <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink/65 md:text-lg">{text}</p>}
+      </div>
+    );
+  }
+  return (
+    <div className="grid gap-5 md:grid-cols-[1.15fr_1fr] md:items-end md:gap-16">
+      <h2 className="font-display text-[2rem] font-medium leading-[1.08] tracking-[-0.03em] text-ink text-balance md:text-5xl">
+        {title}
+      </h2>
       {text && <p className="max-w-xl text-base leading-relaxed text-ink/65 md:text-lg">{text}</p>}
     </div>
   );
 }
 
-function Showcase({ data }) {
+function FeatureRow({ row, flip }) {
   return (
-    <section className="mt-28 md:mt-36">
-      <SectionHead label={data.orbit.eyebrow} title={data.orbit.title} text={data.orbit.text} />
-      <Frame className="mt-10 overflow-hidden">
-        <LoopVideo name="orbit" fit="object-cover" className="aspect-video w-full md:aspect-[16/7]" />
-      </Frame>
-
-      <div className="mt-6 space-y-6">
-        {data.rows.map((row, index) => (
-          <Frame key={row.id} className="grid grid-cols-1 md:grid-cols-2">
-            <div
-              className={`flex flex-col justify-center border-line p-6 md:p-12 ${
-                index % 2 === 1 ? "md:order-2 md:border-l" : "md:border-r"
-              }`}
-            >
-              <p className="inline-flex items-center gap-2 text-sm font-medium text-brand-deep">
-                <span className="h-2 w-2 bg-brand" />
-                {row.eyebrow}
-              </p>
-              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.025em] text-ink md:text-4xl">{row.title}</h3>
-              <p className="mt-4 text-base leading-relaxed text-ink/65">{row.text}</p>
-              <ul className="mt-8 border-t border-line">
-                {row.points.map((point) => (
-                  <li key={point} className="flex items-start gap-3 border-b border-line py-3 text-[15px] text-ink">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <LoopVideo
-              name={row.id}
-              className={`aspect-square w-full border-t border-line md:border-t-0 ${index % 2 === 1 ? "md:order-1" : ""}`}
-            />
-          </Frame>
-        ))}
+    <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16">
+      <div className={flip ? "md:order-2" : ""}>
+        <h3 className="font-display text-[1.75rem] font-medium leading-[1.1] tracking-[-0.025em] text-ink text-balance md:text-4xl">
+          {row.title}
+        </h3>
+        <p className="mt-5 text-base leading-relaxed text-ink/65 md:text-lg">{row.text}</p>
+        <ul className="mt-8 border-t border-line">
+          {row.points.map((point) => (
+            <li key={point} className="flex items-start gap-3 border-b border-line py-3.5 text-[15px] text-ink">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-    </section>
+      <LoopVideo
+        name={row.id}
+        className={`aspect-square w-full overflow-hidden rounded-2xl border border-line ${flip ? "md:order-1" : ""}`}
+      />
+    </div>
   );
 }
 
@@ -935,11 +1267,16 @@ export default function App() {
     { href: "#about", label: t.ui.navVideo },
     { href: "#faq", label: "FAQ" },
   ];
+  const rows = t.showcase.rows.filter((row) => row.id !== "agents");
 
   return (
     <div className="relative min-h-screen bg-white text-ink">
-      {/* первый экран: 3D-петля + чертёжная сетка */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[900px] overflow-hidden md:h-[860px]">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-white">
+        {t.ui.skip}
+      </a>
+
+      {/* первый экран: 3D-петля */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[860px] overflow-hidden">
         <img
           src={`/hero/${heroVariant}-poster.webp`}
           alt=""
@@ -960,16 +1297,15 @@ export default function App() {
           <source src={`/hero/${heroVariant}.webm`} type="video/webm" />
           <source src={`/hero/${heroVariant}.mp4`} type="video/mp4" />
         </video>
-        <div className="tech-grid absolute inset-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_42%_at_50%_34%,rgba(255,255,255,0.92),rgba(255,255,255,0)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-white/0 to-white" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_52%_44%_at_50%_34%,rgba(255,255,255,0.94),rgba(255,255,255,0)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-white/0 to-white" />
       </div>
 
-      <header className="sticky top-0 z-30 border-b border-line/80 bg-white/70 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
+      <header className="sticky top-0 z-30 border-b border-line/80 bg-white/80 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-6">
           <a href="#" className="flex items-center gap-2">
-            <img src="/adaptai-logo.png" alt="AdaptAI logo" className="h-7 w-7 object-contain" />
-            <span className="text-[17px] font-semibold tracking-[-0.02em] text-ink">AdaptAI</span>
+            <img src="/adaptai-logo.png" alt="" className="h-7 w-7 object-contain" />
+            <span className="font-display text-[15px] font-semibold tracking-[-0.02em] text-ink">AdaptAI</span>
           </a>
 
           <div className="hidden items-center gap-8 lg:flex">
@@ -984,16 +1320,17 @@ export default function App() {
             <div className="relative" ref={languageMenuRef}>
               <button
                 onClick={() => setIsLangMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white px-2.5 py-1.5 text-xs font-medium text-ink/70 transition-colors hover:text-ink"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-2.5 py-1.5 text-xs font-medium text-ink/70 transition-colors hover:text-ink"
                 aria-haspopup="menu"
                 aria-expanded={isLangMenuOpen}
+                aria-label="Language"
               >
                 {language.toUpperCase()}
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isLangMenuOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isLangMenuOpen && (
-                <div className="absolute right-0 mt-2 w-24 rounded-lg border border-line bg-white p-1 shadow-lg">
+                <div className="absolute right-0 mt-2 w-24 rounded-xl border border-line bg-white p-1">
                   {["ru", "en", "kz"].map((lang) => (
                     <button
                       key={lang}
@@ -1001,7 +1338,7 @@ export default function App() {
                         setLanguage(lang);
                         setIsLangMenuOpen(false);
                       }}
-                      className={`block w-full rounded-md px-3 py-2 text-left text-xs font-medium transition-colors ${
+                      className={`block w-full rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors ${
                         language === lang ? "bg-ink text-white" : "text-ink/70 hover:bg-mist"
                       }`}
                     >
@@ -1024,36 +1361,34 @@ export default function App() {
         </nav>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-6 pb-24">
+      <main id="main" className="relative z-10 mx-auto max-w-7xl px-5 pb-20 md:px-6">
         {/* hero */}
-        <section className="pt-16 text-center md:pt-24">
+        <section className="pt-14 text-center md:pt-24">
           <a
             href="#agents"
-            className="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-white/80 py-1 pl-1 pr-3 text-sm text-ink/75 backdrop-blur transition-colors hover:border-brand/50"
+            className="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-white py-1 pl-1 pr-3 text-sm text-ink/75 transition-colors hover:border-brand/60"
           >
-            <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs font-semibold text-brand-deep">{t.ui.badgeTag}</span>
+            <span className="rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-white">{t.ui.badgeTag}</span>
             {t.ui.badge}
             <ArrowRight className="h-3.5 w-3.5" />
           </a>
 
-          <h1 className="hero-in mx-auto mt-7 max-w-5xl text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.045em] text-ink sm:text-6xl lg:text-[5.4rem]">
+          <h1 className="hero-in mx-auto mt-8 max-w-5xl font-display text-[2.15rem] font-medium leading-[1.04] tracking-[-0.035em] text-ink text-balance sm:text-6xl lg:text-[4.6rem]">
             {t.heading1}
           </h1>
-          <p className="hero-in mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink/65 md:text-xl">
-            {t.heading2}
-          </p>
+          <p className="hero-in mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink/65 md:text-xl">{t.heading2}</p>
 
-          <div className="hero-in mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="hero-in mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
               href="#contacts"
-              className="inline-flex items-center gap-2 rounded-lg bg-ink px-6 py-3 text-base font-medium text-white transition-colors hover:bg-brand-deep"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3.5 text-base font-medium text-white transition-colors hover:bg-brand-deep"
             >
               {t.cta}
               <ArrowRight className="h-4 w-4" />
             </a>
             <a
               href="#about"
-              className="inline-flex items-center gap-2 rounded-lg border border-line bg-white/80 px-6 py-3 text-base font-medium text-ink backdrop-blur transition-colors hover:border-ink/30"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-6 py-3.5 text-base font-medium text-ink transition-colors hover:border-ink/30"
             >
               <Play className="h-4 w-4" />
               {t.ui.watch}
@@ -1061,36 +1396,35 @@ export default function App() {
           </div>
 
           <div className="hero-in mt-16 md:mt-20">
-            <AgentConsole data={t.console} />
+            <AgentFeed data={t.console} />
           </div>
         </section>
 
-        {/* партнёры */}
-        <section id="partners" className="mt-20 md:mt-24">
-          <p className="text-center text-sm text-ink/50">{t.ui.partners}</p>
-          <div className="relative mt-4 overflow-hidden border-y border-line py-4">
-            <div className="marquee-track">
-              {[...partnerLogos, ...partnerLogos].map((logo, index) => (
-                <div key={`${logo.alt}-${index}`} className="mx-2 flex h-14 min-w-[180px] items-center justify-center px-4">
-                  <img src={logo.src} alt={logo.alt} className="max-h-10 w-auto object-contain opacity-80 grayscale" />
-                </div>
-              ))}
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent" />
-          </div>
+        {/* интеграции */}
+        <section className="mt-20 md:mt-28">
+          <p className="text-center text-sm text-ink/55">{t.map.integrationsTitle}</p>
+          <ul className="mt-5 grid grid-cols-2 overflow-hidden rounded-2xl border border-line sm:grid-cols-4 lg:grid-cols-7">
+            {INTEGRATIONS.map((name) => (
+              <li
+                key={name}
+                className="-mb-px -mr-px flex h-16 last:col-span-2 sm:last:col-span-1 items-center justify-center border-b border-r border-line text-[15px] font-medium tracking-[-0.01em] text-ink/80"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* модули */}
         <section
           id="modules"
-          className="mt-28 md:mt-36"
+          className="mt-28 scroll-mt-24 md:mt-40"
           onMouseEnter={() => setPauseModulesAutoplay(true)}
           onMouseLeave={() => setPauseModulesAutoplay(false)}
         >
-          <SectionHead label={t.ui.modulesLabel} title={t.ui.modulesTitle} text={t.ui.modulesText} />
+          <SectionHead title={t.ui.modulesTitle} text={t.ui.modulesText} />
 
-          <Frame className="mt-10">
+          <div className="mt-10 overflow-hidden rounded-2xl border border-line">
             <div role="tablist" className="grid grid-cols-2 border-b border-line md:grid-cols-6">
               {tabs.map((tab, i) => {
                 const Icon = tab.icon;
@@ -1104,7 +1438,7 @@ export default function App() {
                     className={`relative flex items-center justify-center gap-2 border-line px-3 py-4 text-sm transition-colors ${
                       i % 2 === 0 ? "border-r" : ""
                     } ${i < 4 ? "border-b md:border-b-0" : ""} md:border-r md:last:border-r-0 ${
-                      isActive ? "bg-mist text-ink" : "text-ink/55 hover:text-ink"
+                      isActive ? "bg-mist font-medium text-ink" : "text-ink/55 hover:text-ink"
                     }`}
                   >
                     <Icon className={`h-4 w-4 ${isActive ? "text-brand" : ""}`} />
@@ -1115,26 +1449,52 @@ export default function App() {
               })}
             </div>
 
-            <div className="relative h-[420px] overflow-hidden md:h-[540px]">
+            <div className="relative h-[440px] overflow-hidden md:h-[540px]">
               <video ref={videoRef} autoPlay loop muted playsInline className="h-full w-full object-cover" />
               <div key={activeTab} className="absolute inset-0 animate-fade-in-overlay">
                 <OverlayCard activeTab={activeTab} t={t} />
               </div>
             </div>
-          </Frame>
+          </div>
         </section>
 
-        <div id="agents" />
-        <Showcase data={t.showcase} />
+        {/* всё связано */}
+        <section className="mt-28 md:mt-40">
+          <SectionHead center title={t.showcase.orbit.title} text={t.showcase.orbit.text} />
+          <LoopVideo name="orbit" fit="object-cover" className="-mx-5 mt-4 aspect-[16/10] sm:mx-0 sm:aspect-video md:aspect-[16/7]" />
+        </section>
+
+        <AgentMap data={t.map} />
+
+        <section className="mt-28 space-y-24 md:mt-40 md:space-y-32">
+          {rows.map((row, i) => (
+            <FeatureRow key={row.id} row={row} flip={i % 2 === 1} />
+          ))}
+        </section>
+
+        {/* партнёры */}
+        <section id="partners" className="mt-28 md:mt-40">
+          <p className="text-center text-sm text-ink/55">{t.ui.partners}</p>
+          <div className="relative mt-5 overflow-hidden">
+            <div className="marquee-track">
+              {[...partnerLogos, ...partnerLogos].map((logo, index) => (
+                <div key={`${logo.alt}-${index}`} className="mx-2 flex h-14 min-w-[180px] items-center justify-center px-4">
+                  <img src={logo.src} alt={logo.alt} className="max-h-10 w-auto object-contain opacity-70 grayscale" />
+                </div>
+              ))}
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent" />
+          </div>
+        </section>
 
         {/* видео */}
-        <section id="about" className="mt-28 md:mt-36">
+        <section id="about" className="mt-28 scroll-mt-24 md:mt-40">
           <SectionHead
-            label={t.ui.videoLabel}
             title="Узнайте больше об AdaptAI"
             text="Посмотрите видео-презентацию платформы и узнайте, как AdaptAI меняет бизнес-процессы."
           />
-          <Frame className="mt-10 overflow-hidden">
+          <div className="mt-10 overflow-hidden rounded-2xl border border-line">
             <div className="relative w-full pb-[56.25%]">
               <iframe
                 className="absolute inset-0 h-full w-full"
@@ -1146,18 +1506,14 @@ export default function App() {
                 allowFullScreen
               />
             </div>
-          </Frame>
+          </div>
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="mt-28 grid gap-10 md:mt-36 md:grid-cols-[1fr_1.4fr] md:gap-16">
+        <section id="faq" className="mt-28 grid scroll-mt-24 gap-10 md:mt-40 md:grid-cols-[1fr_1.4fr] md:gap-16">
           <div>
-            <p className="inline-flex items-center gap-2 text-sm font-medium text-brand-deep">
-              <span className="h-2 w-2 bg-brand" />
-              FAQ
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-ink md:text-5xl">Частые вопросы</h2>
-            <p className="mt-4 text-ink/65">О платформе, интеграциях и внедрении AdaptAI.</p>
+            <h2 className="font-display text-[2rem] font-medium tracking-[-0.03em] text-ink md:text-5xl">Частые вопросы</h2>
+            <p className="mt-5 text-ink/65">О платформе, интеграциях и внедрении AdaptAI.</p>
           </div>
 
           <div className="border-t border-line">
@@ -1171,11 +1527,9 @@ export default function App() {
                     className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
                     <span className="text-base font-medium text-ink md:text-lg">{item.question}</span>
-                    <Plus
-                      className={`h-5 w-5 shrink-0 text-ink/50 transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}
-                    />
+                    <Plus className={`h-5 w-5 shrink-0 text-ink/50 transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`} />
                   </button>
-                  {isOpen && <p className="pb-5 pr-8 leading-relaxed text-ink/70">{item.answer}</p>}
+                  {isOpen && <p className="max-w-[65ch] pb-5 pr-8 leading-relaxed text-ink/70">{item.answer}</p>}
                 </div>
               );
             })}
@@ -1183,25 +1537,24 @@ export default function App() {
         </section>
 
         {/* финальный призыв */}
-        <section className="mt-28 md:mt-36">
-          <Frame className="overflow-hidden">
-            <div className="tech-grid tech-grid-soft absolute inset-0" />
-            <div className="relative grid items-center gap-8 p-8 md:grid-cols-[1.3fr_1fr] md:p-14">
+        <section className="mt-28 md:mt-40">
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-mist">
+            <div className="relative grid items-end gap-10 p-8 md:grid-cols-[1.4fr_1fr] md:p-14">
               <div>
-                <h2 className="text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-ink md:text-5xl">
+                <h2 className="font-display text-[2rem] font-medium leading-[1.06] tracking-[-0.035em] text-ink text-balance md:text-[3.4rem]">
                   {t.ui.finalTitle}
                 </h2>
-                <p className="mt-4 max-w-lg text-lg leading-relaxed text-ink/65">{t.ui.finalText}</p>
+                <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink/65">{t.ui.finalText}</p>
                 <a
-                  href="#contacts"
-                  className="mt-8 inline-flex items-center gap-2 rounded-lg bg-ink px-6 py-3 text-base font-medium text-white transition-colors hover:bg-brand-deep"
+                  href="mailto:ftt@fttclub.kz"
+                  className="mt-8 inline-flex items-center gap-2 rounded-xl bg-ink px-6 py-3.5 text-base font-medium text-white transition-colors hover:bg-brand-deep"
                 >
                   {t.cta}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-              <div className="space-y-3 md:justify-self-end md:text-right">
-                <a href="tel:+77010704342" className="block text-2xl font-semibold tracking-[-0.02em] text-ink hover:text-brand-deep md:text-3xl">
+              <div className="space-y-2 md:text-right">
+                <a href="tel:+77010704342" className="block font-display text-2xl font-medium tracking-[-0.02em] text-ink tabular-nums hover:text-brand-deep md:text-3xl">
                   +7 701 070 4342
                 </a>
                 <a href="mailto:ftt@fttclub.kz" className="block text-lg text-ink/65 hover:text-ink">
@@ -1209,15 +1562,15 @@ export default function App() {
                 </a>
               </div>
             </div>
-          </Frame>
+          </div>
         </section>
 
         <footer id="contacts" className="mt-20 border-t border-line pt-10">
           <div className="grid grid-cols-1 gap-8 text-left md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-center gap-2">
-                <img src="/adaptai-logo.png" alt="AdaptAI logo" className="h-6 w-6 object-contain" />
-                <span className="text-base font-semibold text-ink">AdaptAI</span>
+                <img src="/adaptai-logo.png" alt="" className="h-6 w-6 object-contain" />
+                <span className="font-display text-sm font-semibold text-ink">AdaptAI</span>
               </div>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/60">
                 ИИ-агенты и инструменты для продаж, склада, задач и команды. Продукт FTT, резидент Astana Hub.
@@ -1227,12 +1580,8 @@ export default function App() {
             <div>
               <p className="text-sm font-medium text-ink">Контакты</p>
               <ul className="mt-3 space-y-2 text-sm text-ink/60">
-                <li>
-                  <a href="tel:+77010704342" className="hover:text-ink">+7 701 070 4342</a>
-                </li>
-                <li>
-                  <a href="mailto:ftt@fttclub.kz" className="hover:text-ink">ftt@fttclub.kz</a>
-                </li>
+                <li><a href="tel:+77010704342" className="hover:text-ink">+7 701 070 4342</a></li>
+                <li><a href="mailto:ftt@fttclub.kz" className="hover:text-ink">ftt@fttclub.kz</a></li>
                 <li>г. Астана</li>
               </ul>
             </div>
