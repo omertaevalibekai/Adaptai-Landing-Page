@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
-import FluidBackground from "./FluidBackground.jsx";
+import DotWaveBackground from "./DotWaveBackground.jsx";
 import {
   ArrowRight,
   BarChart3,
@@ -1285,9 +1285,9 @@ export default function App() {
         {t.ui.skip}
       </a>
 
-      <FluidBackground />
+      <DotWaveBackground />
 
-      {/* первый экран: 3D-петля; белый фон видео растворяется в градиенте (multiply) */}
+      {/* первый экран: 3D-петля; белый фон видео растворяется в фоне (multiply) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[860px] overflow-hidden mix-blend-multiply">
         <img
           src={`/hero/${heroVariant}-poster.webp`}
