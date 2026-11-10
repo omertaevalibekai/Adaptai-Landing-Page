@@ -3,6 +3,10 @@ import { flushSync } from "react-dom";
 import Hls from "hls.js";
 import DotWaveBackground from "./DotWaveBackground.jsx";
 import TeamShelf from "./TeamShelf.jsx";
+
+// Адрес CRM: «Вход» и «Начать работу» ведут в систему. Внутри самой системы
+// лендинг открывается на её же домене, и адрес там пустой.
+const APP_URL = import.meta.env.VITE_APP_URL ?? "https://ai.fttclub.kz";
 import {
   ArrowRight,
   BarChart3,
@@ -1691,11 +1695,11 @@ export default function App() {
                 </div>
               )}
             </div>
-            <a href="#" className="hidden text-sm text-ink/65 transition-colors hover:text-ink sm:inline">
+            <a href={`${APP_URL}/login`} className="hidden text-sm text-ink/65 transition-colors hover:text-ink sm:inline">
               {t.nav.login}
             </a>
             <a
-              href="#contacts"
+              href={`${APP_URL}/register`}
               className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-deep"
             >
               {t.nav.started}
@@ -1723,7 +1727,7 @@ export default function App() {
 
           <div className="hero-in mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
-              href="#contacts"
+              href={`${APP_URL}/register`}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3.5 text-base font-medium text-white transition-colors hover:bg-brand-deep"
             >
               {t.cta}
