@@ -160,7 +160,7 @@ export default function TeamShelf({ data }) {
                   </span>
                   <span
                     className={`mt-3 line-clamp-2 min-h-[2.5em] px-1 text-center text-[13px] leading-tight transition-colors duration-200 ${
-                      isActive ? "font-medium text-ink" : "text-ink/60"
+                      isActive ? "font-medium text-ink" : "text-ink/65"
                     }`}
                   >
                     {data.agents[id][0]}

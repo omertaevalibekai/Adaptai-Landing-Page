@@ -16,6 +16,16 @@ export default function DotWaveBackground() {
     let raf = 0;
     const pointer = { x: -9999, y: -9999, sx: -9999, sy: -9999 };
     const t0 = performance.now();
+    // Точки рисуются пачками: прозрачность квантуется до LEVELS ступеней, и на
+    // каждую пару «цвет × ступень» уходит одна заливка вместо заливки на точку.
+    // Раньше на телефоне это было ~1400 fill и строк цвета за кадр, и при 4x
+    // замедлении CPU каждый кадр шёл дольше 50 мс и блокировал страницу.
+    const LEVELS = 12;
+    const styles = [];
+    for (const rgb of ["8,126,144", "11,184,211"]) {
+      for (let k = 0; k < LEVELS; k++) styles.push(`rgba(${rgb},${((k + 1) / LEVELS).toFixed(3)})`);
+    }
+    let last = 0;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -30,7 +40,14 @@ export default function DotWaveBackground() {
     };
 
     const draw = (now) => {
+      // На узком экране хватает 30 кадров в секунду: волна медленная.
+      if (!reduce && w < 768 && now - last < 32) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
+      last = now;
       const t = (now - t0) / 1000;
+      const paths = [];
       const scroll = window.scrollY;
       const travel = scroll * 0.0025;
       const calm = 1 - 0.55 * Math.min(1, scroll / (h * 1.2));
@@ -66,13 +83,18 @@ export default function DotWaveBackground() {
           const a = depthA * (0.3 + 0.7 * Math.min(1, Math.max(0, (y + 0.65) / 1.3))) * calm;
           if (a < 0.03 || sy > h + 4 || sx < -4 || sx > w + 4) continue;
           const s = Math.max(0.6, 2.7 / z) * (1 + lift * 0.8);
-          ctx.fillStyle = y > 0.2 || lift > 0.2 ? `rgba(11,184,211,${a.toFixed(3)})` : `rgba(8,126,144,${a.toFixed(3)})`;
-          ctx.beginPath();
-          ctx.arc(sx, sy, s, 0, 6.283);
-          ctx.fill();
+          const idx = (y > 0.2 || lift > 0.2 ? LEVELS : 0) + Math.min(LEVELS - 1, Math.max(0, Math.round(a * LEVELS) - 1));
+          const path = paths[idx] || (paths[idx] = new Path2D());
+          path.moveTo(sx + s, sy);
+          path.arc(sx, sy, s, 0, 6.283);
         }
       }
-      if (!reduce) raf = requestAnimationFrame(draw);
+      for (let k = 0; k < paths.length; k++) {
+        if (!paths[k]) continue;
+        ctx.fillStyle = styles[k];
+        ctx.fill(paths[k]);
+      }
+      if (!reduce && running) raf = requestAnimationFrame(draw);
     };
 
     const onMove = (e) => {
@@ -87,18 +109,30 @@ export default function DotWaveBackground() {
     };
     const onVis = () => {
       cancelAnimationFrame(raf);
-      if (!document.hidden) raf = requestAnimationFrame(draw);
+      if (!document.hidden && running) raf = requestAnimationFrame(draw);
     };
 
+    // Первый кадр сразу, чтобы фон был на месте, а сама анимация - после
+    // загрузки страницы: она не должна отнимать процессор у первого экрана.
+    let running = false;
+    const startLoop = () => {
+      running = true;
+      cancelAnimationFrame(raf);
+      if (!document.hidden) raf = requestAnimationFrame(draw);
+    };
     resize();
-    raf = requestAnimationFrame(draw);
+    draw(performance.now());
+    if (document.readyState === "complete") startLoop();
+    else window.addEventListener("load", startLoop, { once: true });
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("pointerleave", onLeave);
     document.addEventListener("visibilitychange", onVis);
     return () => {
+      running = false;
       cancelAnimationFrame(raf);
+      window.removeEventListener("load", startLoop);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", onScroll);

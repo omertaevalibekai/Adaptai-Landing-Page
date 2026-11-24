@@ -1270,7 +1270,7 @@ function AgentFeed({ data }) {
           <img src="/adaptai-logo.png" alt="" className="h-5 w-5 object-contain" />
           <span className="text-sm font-medium text-ink">{data.title}</span>
         </div>
-        <span className="inline-flex items-center gap-2 text-xs text-ink/60" aria-live="polite">
+        <span className="inline-flex items-center gap-2 text-xs text-ink/65" aria-live="polite">
           <span className={`h-1.5 w-1.5 rounded-full ${working ? "bg-brand animate-pulse" : "bg-ink"}`} />
           {working ? data.working : data.idle}
         </span>
@@ -1278,7 +1278,7 @@ function AgentFeed({ data }) {
       <ol className="min-h-[300px] divide-y divide-line/70 sm:min-h-[212px]">
         {data.lines.slice(0, shown).map((line, i) => (
           <li key={i} className="feed-line flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5">
-            <span className="w-11 shrink-0 font-mono text-xs tabular-nums text-ink/45">{line.time}</span>
+            <span className="w-11 shrink-0 font-mono text-xs tabular-nums text-ink/65">{line.time}</span>
             <span className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-brand-deep">
               <img src={`/mascots/${FEED_MASCOTS[i]}.webp`} alt="" className="h-6 w-6 object-contain" />
               {line.agent}
@@ -1430,7 +1430,7 @@ function AgentMap({ data }) {
             ))}
           </ul>
           <div className="rounded-xl bg-mist p-4">
-            <p className="text-xs text-ink/55">{data.exampleLabel}</p>
+            <p className="text-xs text-ink/65">{data.exampleLabel}</p>
             <p className="mt-1.5 text-[15px] text-ink">{node.log}</p>
           </div>
         </div>
@@ -1587,9 +1587,23 @@ export default function App() {
 
     if (!video) return;
 
+    // Ролик весит ~24 МБ и стоит ниже первого экрана. Раньше он качался сразу
+    // при открытии страницы и забирал канал у первого экрана. Теперь - когда
+    // блок подъезжает к экрану, и не качается вовсе при «экономии трафика»,
+    // медленной сети или «уменьшить движение» (вместо него остаётся фон блока).
+    const connection = navigator.connection;
+    const saveData = Boolean(connection?.saveData) || /(^|-)2g$|^3g$/.test(connection?.effectiveType || "");
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (saveData || reduceMotion) return;
+
     if (video.canPlayType("video/mp4")) {
-      video.src = hlsUrl;
-      return;
+      const start = () => { if (!video.src) video.src = hlsUrl; };
+      if (!("IntersectionObserver" in window)) { start(); return; }
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) { start(); observer.disconnect(); }
+      }, { rootMargin: "400px 0px" });
+      observer.observe(video);
+      return () => observer.disconnect();
     }
 
     if (Hls.isSupported()) {
@@ -1658,7 +1672,7 @@ export default function App() {
                 href={link.href}
                 aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
                 className={`nav-link relative py-1 text-sm transition-colors ${
-                  activeSection === link.href.slice(1) ? "text-ink" : "text-ink/60 hover:text-ink"
+                  activeSection === link.href.slice(1) ? "text-ink" : "text-ink/65 hover:text-ink"
                 }`}
               >
                 {link.label}
@@ -1673,7 +1687,7 @@ export default function App() {
                 className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-2.5 py-1.5 text-xs font-medium text-ink/70 transition-colors hover:text-ink"
                 aria-haspopup="menu"
                 aria-expanded={isLangMenuOpen}
-                aria-label="Language"
+                aria-label={`${language.toUpperCase()} - язык`}
               >
                 {language.toUpperCase()}
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isLangMenuOpen ? "rotate-180" : ""}`} />
@@ -1715,7 +1729,7 @@ export default function App() {
             href="#agents"
             className="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-white py-1 pl-1 pr-3 text-sm text-ink/75 transition-colors hover:border-brand/60"
           >
-            <span className="rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-white">{t.ui.badgeTag}</span>
+            <span className="rounded-full bg-brand-deep px-2 py-0.5 text-xs font-semibold text-white">{t.ui.badgeTag}</span>
             {t.ui.badge}
             <ArrowRight className="h-3.5 w-3.5" />
           </a>
@@ -1749,7 +1763,7 @@ export default function App() {
 
         {/* интеграции */}
         <section className="mt-20 md:mt-28">
-          <p className="text-center text-sm text-ink/55">{t.map.integrationsTitle}</p>
+          <p className="text-center text-sm text-ink/65">{t.map.integrationsTitle}</p>
           <ul className="mt-5 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-white sm:grid-cols-4 lg:grid-cols-7">
             {INTEGRATIONS.map((item) => (
               <li
@@ -1790,7 +1804,7 @@ export default function App() {
                     className={`relative flex items-center justify-center gap-2 border-line px-3 py-4 text-sm transition-colors ${
                       i % 2 === 0 ? "border-r" : ""
                     } ${i < 4 ? "border-b md:border-b-0" : ""} md:border-r md:last:border-r-0 ${
-                      isActive ? "bg-mist font-medium text-ink" : "text-ink/55 hover:text-ink"
+                      isActive ? "bg-mist font-medium text-ink" : "text-ink/65 hover:text-ink"
                     }`}
                   >
                     <Icon className={`h-4 w-4 ${isActive ? "text-brand" : ""}`} />
@@ -1802,7 +1816,7 @@ export default function App() {
             </div>
 
             <div className="relative h-[440px] overflow-hidden md:h-[540px]">
-              <video ref={videoRef} autoPlay loop muted playsInline className="h-full w-full object-cover" />
+              <video ref={videoRef} autoPlay loop muted playsInline preload="none" className="h-full w-full object-cover" />
               <div key={activeTab} className="absolute inset-0 animate-fade-in-overlay">
                 <OverlayCard activeTab={activeTab} t={t} />
               </div>
@@ -1828,7 +1842,7 @@ export default function App() {
 
         {/* партнёры */}
         <section id="partners" className="mt-28 md:mt-40">
-          <p className="text-center text-sm text-ink/55">{t.ui.partners}</p>
+          <p className="text-center text-sm text-ink/65">{t.ui.partners}</p>
           <div className="relative mt-5 overflow-hidden">
             <div className="marquee-track">
               {[...partnerLogos, ...partnerLogos].map((logo, index) => (
@@ -1882,7 +1896,7 @@ export default function App() {
                     className="group flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
                     <span className="text-base font-medium text-ink transition-colors group-hover:text-brand-deep md:text-lg">{question}</span>
-                    <Plus className={`h-5 w-5 shrink-0 text-ink/50 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`} />
+                    <Plus className={`h-5 w-5 shrink-0 text-ink/65 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`} />
                   </button>
                   <div
                     id={`faq-${index}`}
@@ -1936,14 +1950,14 @@ export default function App() {
                 <img src="/adaptai-logo.png" alt="" className="h-6 w-6 object-contain" />
                 <span className="font-display text-sm font-semibold text-ink">AdaptAI</span>
               </div>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/60">
+              <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/65">
                 {t.rest.footerText}
               </p>
             </div>
 
             <div>
               <p className="text-sm font-medium text-ink">{t.rest.contacts}</p>
-              <ul className="mt-3 space-y-2 text-sm text-ink/60">
+              <ul className="mt-3 space-y-2 text-sm text-ink/65">
                 <li><a href="tel:+77010704342" className="hover:text-ink">+7 701 070 4342</a></li>
                 <li><a href="mailto:ftt@fttclub.kz" className="hover:text-ink">ftt@fttclub.kz</a></li>
                 <li>{t.rest.city}</li>
@@ -1952,7 +1966,7 @@ export default function App() {
 
             <div>
               <p className="text-sm font-medium text-ink">{t.rest.product}</p>
-              <ul className="mt-3 space-y-2 text-sm text-ink/60">
+              <ul className="mt-3 space-y-2 text-sm text-ink/65">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <a href={link.href} className="transition-colors hover:text-ink">{link.label}</a>
@@ -1963,7 +1977,7 @@ export default function App() {
 
             <div>
               <p className="text-sm font-medium text-ink">{t.rest.legal}</p>
-              <ul className="mt-3 space-y-2 text-sm text-ink/60">
+              <ul className="mt-3 space-y-2 text-sm text-ink/65">
                 <li>
                   <a href="https://fttclub.kz/privacy_policy.html" target="_blank" rel="noreferrer" className="transition-colors hover:text-ink">
                     {t.rest.privacy}
@@ -1978,7 +1992,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line py-5 text-xs text-ink/45 sm:flex-row">
+          <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line py-5 text-xs text-ink/65 sm:flex-row">
             <span>{t.rest.rights}</span>
             <span>{t.ui.status}</span>
           </div>
