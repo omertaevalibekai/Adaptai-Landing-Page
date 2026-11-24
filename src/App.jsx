@@ -1251,7 +1251,7 @@ const FEED_MASCOTS = ["whatsapp_sales", "warehouse", "tasks", "scout", "rop"];
 
 function AgentFeed({ data }) {
   const [shown, setShown] = useState(() =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches ? data.lines.length : 0,
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? data.lines.length : 0,
   );
 
   useEffect(() => {
@@ -1534,13 +1534,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("sales");
   const [openFaq, setOpenFaq] = useState(0);
   const [pauseModulesAutoplay, setPauseModulesAutoplay] = useState(false);
+  // На сервере (пререндер в CRM) ширины экрана нет: heroVariant = null,
+  // и первый экран рисуется постером через <picture> без видео.
   const [heroVariant, setHeroVariant] = useState(() =>
-    window.matchMedia("(max-width: 767px)").matches ? "adaptai-hero-mobile" : "adaptai-hero",
+    typeof window === "undefined"
+      ? null
+      : window.matchMedia("(max-width: 767px)").matches ? "adaptai-hero-mobile" : "adaptai-hero",
   );
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     const update = () => setHeroVariant(mq.matches ? "adaptai-hero-mobile" : "adaptai-hero");
+    update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
@@ -1636,13 +1641,25 @@ export default function App() {
 
       {/* первый экран: 3D-петля; белый фон видео растворяется в фоне (multiply) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[860px] overflow-hidden mix-blend-multiply">
-        <img
-          src={`/hero/${heroVariant}-poster.webp`}
-          alt=""
-          aria-hidden="true"
-          className="hero-poster absolute inset-0 h-full w-full object-cover"
-        />
-        <video
+        {heroVariant ? (
+          <img
+            src={`/hero/${heroVariant}-poster.webp`}
+            alt=""
+            aria-hidden="true"
+            className="hero-poster absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/hero/adaptai-hero-mobile-poster.webp" />
+            <img
+              src="/hero/adaptai-hero-poster.webp"
+              alt=""
+              aria-hidden="true"
+              className="hero-poster absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+        )}
+        {heroVariant && <video
           key={heroVariant}
           poster={`/hero/${heroVariant}-poster.webp`}
           autoPlay
@@ -1655,7 +1672,7 @@ export default function App() {
         >
           <source src={`/hero/${heroVariant}.webm`} type="video/webm" />
           <source src={`/hero/${heroVariant}.mp4`} type="video/mp4" />
-        </video>
+        </video>}
       </div>
 
       <header className="sticky top-0 z-30 border-b border-line/80 bg-white/80 backdrop-blur-xl">
